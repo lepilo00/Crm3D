@@ -10,6 +10,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddTransient<ISendEmailService, SendEmailService>();
+
 builder.Services.AddDbContext<DataContext>();
 
 var app = builder.Build();

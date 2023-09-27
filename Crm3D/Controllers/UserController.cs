@@ -10,10 +10,12 @@ namespace Crm3D.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly ISendEmailService _emailHandle;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, ISendEmailService emailHandle)
         {
             _userService = userService;
+            _emailHandle = emailHandle;
         }
 
         [HttpGet]
@@ -32,6 +34,8 @@ namespace Crm3D.Controllers
             var result = await _userService.AddUser(user);
             if (result == null)
                 return NotFound("User not found!");
+
+            await _emailHandle.SendEmailAsync(user);
             return Ok(result);
         }
 
