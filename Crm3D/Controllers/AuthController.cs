@@ -11,10 +11,12 @@ namespace Crm3D.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IEmployeeService _employeeService;
+        private readonly ITokenService _tokenService;
 
-        public AuthController(IEmployeeService employeeService)
+        public AuthController(IEmployeeService employeeService, ITokenService tokenService)
         {
             _employeeService = employeeService;
+            _tokenService = tokenService;
         }
 
         [HttpPost("register")]
@@ -36,7 +38,9 @@ namespace Crm3D.Controllers
                 return BadRequest("Employee not found!");
             }
 
-            return Ok(result);
+            string token = await _tokenService.CreateToken(result);
+
+            return Ok(token);
         }
 
     }
