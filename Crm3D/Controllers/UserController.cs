@@ -1,5 +1,6 @@
 ﻿using Crm3D.Models;
 using Crm3D.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Crm3D.Controllers
@@ -18,7 +19,7 @@ namespace Crm3D.Controllers
             _emailHandle = emailHandle;
         }
 
-        [HttpGet]
+        [HttpGet, Authorize(Roles = "Admin, User")]
         public async Task<ActionResult<List<User>>> GetAllUsers()
         {
             var result = await _userService.GetAllUsers();

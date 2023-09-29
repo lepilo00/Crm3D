@@ -20,7 +20,9 @@ namespace Crm3D.Services
         {
             List<Claim> claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.Name, employee.Username)
+                new Claim(ClaimTypes.Name, employee.Username),
+                new Claim(ClaimTypes.Role, "Admin"),
+                new Claim(ClaimTypes.Role, "User")
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
