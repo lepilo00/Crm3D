@@ -49,6 +49,11 @@ namespace Crm3D.Controllers
 
             string token = await _tokenService.CreateToken(result);
 
+
+            // create a new _employeeService.UpdateEmployee(result)
+            // tukaj dodamo refresh token v bazo za dolocenega uporabnika(Employee)
+
+
             var refreshToken = GenerateRefreshToken();
             SetRefreshToken(refreshToken);
 
