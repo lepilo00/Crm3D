@@ -8,11 +8,13 @@ namespace Crm3D.Services
     public class EmployeeService : IEmployeeService
     {
         private readonly DataContext _dataContext;
+        private readonly IRefreshTokenService _refreshTokenService;
         public static Employee Employee = new Employee();
 
-        public EmployeeService(DataContext dataContext)
+        public EmployeeService(DataContext dataContext, IRefreshTokenService refreshTokenService)
         {
             _dataContext = dataContext;
+            _refreshTokenService = refreshTokenService;
         }
 
         public async Task<Employee> Register(EmployeeDto request)
@@ -27,7 +29,7 @@ namespace Crm3D.Services
             return Employee;
         }
 
-        public async Task<Employee> Login(EmployeeDto request)
+        public async Task<Employee> Login(EmployeeDto request, HttpResponse response)
         {
             Employee user;
             var allEmployees = await _dataContext.Employees.ToListAsync();
@@ -45,6 +47,8 @@ namespace Crm3D.Services
             {
                 return null; // dont send that password is wrong
             }
+
+            await _refreshTokenService.AddRefreshToken(user, response);
 
             return user;
         }

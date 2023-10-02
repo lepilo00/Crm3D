@@ -40,6 +40,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IRefreshTokenService, RefreshTokenService>();
 
 builder.Services.AddTransient<ISendEmailService, SendEmailService>();
 
